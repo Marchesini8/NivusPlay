@@ -4,7 +4,7 @@ const paymentStatusStore = require("./paymentStatusStore");
 const FIXED_SHIPPING_AMOUNT = 0;
 const DEFAULT_ITEM_TITLE = "Produto digital";
 const DEFAULT_COUPON_CODE = "NIVUS599";
-const DEFAULT_COUPON_DISCOUNT = 5.99;
+const DEFAULT_COUPON_DISCOUNT = 4.99;
 
 function normalizeItemPrice(item) {
   const directPrice = Number(item?.price || 0);

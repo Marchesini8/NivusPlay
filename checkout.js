@@ -79,7 +79,7 @@ const PRODUCTS = {
 
 const COUPON = {
   code: "NIVUS599",
-  discount: 5.99
+  discount: 4.99
 };
 
 const params = new URLSearchParams(window.location.search);
