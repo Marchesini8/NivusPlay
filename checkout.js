@@ -120,20 +120,42 @@ function getSelectedUpgrade() {
   return selectedProduct.upgrades?.find((upgrade) => upgrade.id === selectedUpgradeId) || null;
 }
 
-function getDiscountedBasePrice() {
-  return Math.max(selectedProduct.price - COUPON.discount, 0.01);
+function getCurrentPlan() {
+  const selectedUpgrade = getSelectedUpgrade();
+
+  if (selectedUpgrade) {
+    return {
+      title: `${selectedProduct.title} - ${selectedUpgrade.title}`,
+      price: selectedUpgrade.price,
+      image: selectedUpgrade.image,
+      description: selectedUpgrade.description
+    };
+  }
+
+  return {
+    title: selectedProduct.title,
+    price: selectedProduct.price,
+    image: selectedProduct.image,
+    description: selectedProduct.description
+  };
+}
+
+function getDiscountedPlanPrice() {
+  return Math.max(getCurrentPlan().price - COUPON.discount, 0.01);
 }
 
 function getCheckoutTotal() {
-  return getDiscountedBasePrice() + (getSelectedUpgrade()?.price || 0);
+  return getDiscountedPlanPrice();
 }
 
 function fillProductSummary() {
+  const currentPlan = getCurrentPlan();
+
   productImage.src = selectedProduct.image;
-  productImage.alt = selectedProduct.title;
-  productTitle.textContent = selectedProduct.title;
-  productDescription.textContent = selectedProduct.description;
-  summaryProductPrice.textContent = formatCurrency(selectedProduct.price);
+  productImage.alt = currentPlan.title;
+  productTitle.textContent = currentPlan.title;
+  productDescription.textContent = currentPlan.description;
+  summaryProductPrice.textContent = formatCurrency(currentPlan.price);
   summaryDiscountPrice.textContent = `-${formatCurrency(COUPON.discount)}`;
   summaryTotalPrice.textContent = formatCurrency(getCheckoutTotal());
   updateUpgradeSummary();
@@ -151,7 +173,7 @@ function updateUpgradeSummary() {
   }
 
   summaryUpgradeRow.hidden = false;
-  summaryUpgradeLabel.textContent = selectedUpgrade.title;
+  summaryUpgradeLabel.textContent = "Plano selecionado";
   summaryUpgradePrice.textContent = formatCurrency(selectedUpgrade.price);
   summaryTotalPrice.textContent = formatCurrency(getCheckoutTotal());
 }
@@ -196,7 +218,7 @@ function renderUpgradeOptions() {
     input.addEventListener("change", () => {
       selectedUpgradeId = selectedUpgradeId === input.value ? null : input.value;
       renderUpgradeOptions();
-      updateUpgradeSummary();
+      fillProductSummary();
     });
   });
 }
@@ -266,11 +288,11 @@ checkoutForm.addEventListener("submit", async (event) => {
   const payload = {
     items: [
       {
-        title: selectedProduct.title,
-        price: getDiscountedBasePrice(),
-        originalPrice: selectedProduct.price,
+        title: getCurrentPlan().title,
+        price: getDiscountedPlanPrice(),
+        originalPrice: getCurrentPlan().price,
         quantity: 1,
-        image: selectedProduct.image
+        image: getCurrentPlan().image
       }
     ],
     coupon: {
@@ -283,17 +305,6 @@ checkoutForm.addEventListener("submit", async (event) => {
       phone: document.getElementById("customer-phone").value.trim()
     }
   };
-
-  const selectedUpgrade = getSelectedUpgrade();
-
-  if (selectedUpgrade) {
-    payload.items.push({
-      title: `${selectedProduct.title} - ${selectedUpgrade.title}`,
-      price: selectedUpgrade.price,
-      quantity: 1,
-      image: selectedUpgrade.image
-    });
-  }
 
   try {
     const response = await fetch("/api/payments/checkout", {
@@ -328,4 +339,5 @@ checkoutForm.addEventListener("submit", async (event) => {
 
 fillProductSummary();
 renderUpgradeOptions();
+updateUpgradeSummary();
 showCouponModal();
