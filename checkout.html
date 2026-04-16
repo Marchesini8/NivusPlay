@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Nivus Play</title>
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body class="checkout-page">
+  <div class="top-alert">
+    <span>CHECKOUT PROTEGIDO - PAGAMENTO VIA PIX COM LIBERACAO RAPIDA</span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="/">
+      <div class="brand-badge">NP</div>
+      <span>NIVUS PLAY</span>
+    </a>
+
+    <nav class="main-nav">
+      <a href="/">Inicio</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#avaliacoes">Avaliacoes</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+
+    <a class="cta-button" href="/">Voltar ao Site</a>
+  </header>
+
+  <main class="checkout-layout">
+    <section class="checkout-hero-panel reveal">
+      <span class="hero-tag">Checkout seguro da Nivus Play</span>
+      <h1>Finalize sua compra em poucos segundos</h1>
+
+      <div class="checkout-benefits">
+        <span>Pagamento via PIX</span>
+        <span>Entrega automatica</span>
+        <span>Suporte rapido</span>
+      </div>
+    </section>
+
+    <section class="checkout-shell">
+      <div class="checkout-form-card reveal">
+        <div class="checkout-title-row">
+          <div>
+            <p class="checkout-kicker">Dados do comprador</p>
+            <h2>Gerar pagamento</h2>
+          </div>
+          <span class="checkout-method">PIX</span>
+        </div>
+
+        <form id="checkout-form" class="checkout-form">
+          <label>
+            <span>Nome completo</span>
+            <input type="text" id="customer-name" placeholder="Seu nome completo" required>
+          </label>
+
+          <label>
+            <span>E-mail</span>
+            <input type="email" id="customer-email" placeholder="voce@exemplo.com" required>
+          </label>
+
+          <div class="checkout-form-grid checkout-form-grid-single">
+            <label>
+              <span>Telefone</span>
+              <input type="text" id="customer-phone" placeholder="(11) 99999-9999" required>
+            </label>
+          </div>
+
+          <button class="checkout-submit" id="checkout-submit" type="submit">Gerar PIX agora</button>
+        </form>
+
+        <p class="checkout-feedback" id="checkout-feedback"></p>
+      </div>
+
+      <aside class="checkout-summary-card reveal">
+        <p class="checkout-kicker">Resumo do pedido</p>
+
+        <div class="checkout-product">
+          <img id="product-image" src="assets/products/gamepass-ultimate.jpg" alt="Produto selecionado">
+          <div>
+            <h3 id="product-title">Produto</h3>
+            <p id="product-description">Descricao do produto.</p>
+          </div>
+        </div>
+
+        <div class="checkout-summary-list">
+          <div>
+            <span>Produto</span>
+            <strong id="summary-product-price">R$ 0,00</strong>
+          </div>
+          <div>
+            <span>Taxas</span>
+            <strong>R$ 0,00</strong>
+          </div>
+          <div class="checkout-total-row">
+            <span>Total</span>
+            <strong id="summary-total-price">R$ 0,00</strong>
+          </div>
+        </div>
+
+        <div class="pix-result" id="pix-result" hidden>
+          <p class="checkout-kicker">PIX gerado</p>
+          <img id="pix-image" alt="QR Code PIX">
+          <div class="pix-code-box">
+            <input id="pix-code" type="text" readonly>
+            <button id="copy-pix-button" type="button">Copiar</button>
+          </div>
+          <p class="pix-note">Assim que o pagamento for aprovado, a entrega pode ser liberada automaticamente.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="site.js"></script>
+  <script src="checkout.js"></script>
+</body>
+</html>
