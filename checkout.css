@@ -278,7 +278,12 @@
     grid-template-columns: 1fr;
   }
 
+  .checkout-form-card {
+    order: 2;
+  }
+
   .checkout-summary-card {
+    order: 1;
     position: static;
   }
 }
