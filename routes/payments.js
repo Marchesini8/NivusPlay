@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/checkout", async (req, res) => {
   try {
-    const { items, customer, delivery } = req.body;
+    const { items, customer, delivery, coupon } = req.body;
 
     if (!Array.isArray(items) || !items.length || !customer) {
       return res.status(400).json({ error: "Dados invalidos para o checkout." });
@@ -14,7 +14,8 @@ router.post("/checkout", async (req, res) => {
     const payment = await paymentService.createPixPayment({
       items,
       customer,
-      delivery
+      delivery,
+      coupon
     });
 
     return res.json(payment);

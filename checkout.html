@@ -12,6 +12,19 @@
   <link rel="stylesheet" href="checkout.css">
 </head>
 <body class="checkout-page">
+  <div class="coupon-modal" id="coupon-modal" aria-hidden="true">
+    <div class="coupon-modal-backdrop" data-close-coupon></div>
+    <div class="coupon-modal-card" role="dialog" aria-modal="true" aria-labelledby="coupon-modal-title">
+      <button class="coupon-modal-close" id="coupon-modal-close" type="button" aria-label="Fechar pop-up de desconto">×</button>
+      <div class="coupon-modal-icon">R$</div>
+      <p class="coupon-modal-tag">Oferta liberada no checkout</p>
+      <h2 id="coupon-modal-title">Cupom de R$ 5,99 aplicado</h2>
+      <p class="coupon-modal-text">Seu desconto exclusivo ja esta ativo e sera abatido automaticamente do valor final do PIX.</p>
+      <div class="coupon-modal-code">NIVUS599</div>
+      <button class="coupon-modal-action" id="coupon-modal-action" type="button">Continuar com desconto</button>
+    </div>
+  </div>
+
   <div class="top-alert">
     <span>CHECKOUT PROTEGIDO - PAGAMENTO VIA PIX COM LIBERACAO RAPIDA</span>
   </div>
@@ -93,6 +106,10 @@
           <div>
             <span>Produto</span>
             <strong id="summary-product-price">R$ 0,00</strong>
+          </div>
+          <div>
+            <span>Cupom NIVUS599</span>
+            <strong class="checkout-discount-price" id="summary-discount-price">-R$ 0,00</strong>
           </div>
           <div>
             <span>Taxas</span>

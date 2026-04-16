@@ -3,6 +3,8 @@ const paymentStatusStore = require("./paymentStatusStore");
 
 const FIXED_SHIPPING_AMOUNT = 0;
 const DEFAULT_ITEM_TITLE = "Produto digital";
+const DEFAULT_COUPON_CODE = "NIVUS599";
+const DEFAULT_COUPON_DISCOUNT = 5.99;
 
 function normalizeItemPrice(item) {
   const directPrice = Number(item?.price || 0);
@@ -14,11 +16,17 @@ function normalizeItemPrice(item) {
   return Number(item?.oldPrice || 0);
 }
 
-async function createPixPayment({ items, customer, delivery = {} }) {
+async function createPixPayment({ items, customer, delivery = {}, coupon = {} }) {
   const normalizedItems = Array.isArray(items) ? items : [];
+  const originalProductTotal = normalizedItems.reduce((sum, item) => {
+    return sum + Number(item?.originalPrice || normalizeItemPrice(item)) * Number(item?.qty || item?.quantity || 1);
+  }, 0);
   const productTotal = normalizedItems.reduce((sum, item) => {
     return sum + normalizeItemPrice(item) * Number(item?.qty || item?.quantity || 1);
   }, 0);
+  const couponDiscount = Math.max(originalProductTotal - productTotal, 0);
+  const couponCode = coupon?.code || (couponDiscount > 0 ? DEFAULT_COUPON_CODE : null);
+  const declaredCouponDiscount = Number(coupon?.discount || 0);
 
   const totalAmount = productTotal + FIXED_SHIPPING_AMOUNT;
   const totalInCents = Math.round(totalAmount * 100);
@@ -87,6 +95,10 @@ async function createPixPayment({ items, customer, delivery = {} }) {
           utm_campaign: "",
           utm_term: "",
           utm_content: ""
+        },
+        metadata: {
+          coupon_code: couponCode,
+          coupon_discount: Math.round((couponDiscount || declaredCouponDiscount) * 100)
         }
       },
       {
@@ -143,6 +155,8 @@ async function createPixPayment({ items, customer, delivery = {} }) {
         null,
       charged_total: totalAmount,
       product_total: productTotal,
+      original_product_total: originalProductTotal,
+      discount_total: couponDiscount,
       shipping_total: FIXED_SHIPPING_AMOUNT,
       source: "ironpay"
     };
@@ -163,5 +177,7 @@ function getPaymentStatus(transactionHash) {
 module.exports = {
   createPixPayment,
   getPaymentStatus,
-  FIXED_SHIPPING_AMOUNT
+  FIXED_SHIPPING_AMOUNT,
+  DEFAULT_COUPON_CODE,
+  DEFAULT_COUPON_DISCOUNT
 };
