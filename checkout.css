@@ -353,6 +353,145 @@
   font-size: 1.2rem;
 }
 
+.checkout-upgrade-card {
+  margin-top: 1.3rem;
+  padding: 1.15rem;
+  border: 1px solid rgba(139, 104, 255, 0.14);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(124, 92, 255, 0.14), transparent 38%),
+    linear-gradient(180deg, rgba(18, 12, 33, 0.98) 0%, rgba(11, 8, 22, 0.98) 100%);
+}
+
+.checkout-upgrade-title {
+  margin: 0.2rem 0 0.45rem;
+  font-size: 1.1rem;
+}
+
+.checkout-upgrade-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+.checkout-upgrade-options {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.checkout-upgrade-option {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(139, 104, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(13, 9, 24, 0.92);
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.checkout-upgrade-option:hover {
+  transform: translateY(-2px);
+  border-color: rgba(155, 125, 255, 0.34);
+  box-shadow: 0 18px 40px rgba(12, 7, 28, 0.32);
+}
+
+.checkout-upgrade-option.is-selected {
+  border-color: rgba(155, 125, 255, 0.48);
+  box-shadow: 0 20px 44px rgba(77, 54, 183, 0.22);
+}
+
+.checkout-upgrade-badge {
+  display: block;
+  padding: 0.5rem 0.8rem;
+  background: linear-gradient(135deg, #6d53ee 0%, #8c6bff 100%);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.checkout-upgrade-option label {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1.15fr) minmax(120px, 0.85fr);
+  gap: 0.85rem;
+  align-items: center;
+  padding: 1rem 0.95rem;
+  cursor: pointer;
+}
+
+.checkout-upgrade-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkout-upgrade-check {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(201, 193, 228, 0.5);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 3px rgba(12, 8, 23, 0.92);
+}
+
+.checkout-upgrade-option.is-selected .checkout-upgrade-check {
+  border-color: #8c6bff;
+  background: linear-gradient(135deg, #6d53ee 0%, #8c6bff 100%);
+  box-shadow: inset 0 0 0 4px rgba(245, 242, 255, 0.9);
+}
+
+.checkout-upgrade-platform {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.checkout-upgrade-platform img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+}
+
+.checkout-upgrade-copy strong {
+  display: block;
+  font-size: 0.98rem;
+  line-height: 1.15;
+}
+
+.checkout-upgrade-copy span {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.checkout-upgrade-price {
+  text-align: right;
+}
+
+.checkout-upgrade-price strong {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.checkout-upgrade-price span {
+  display: block;
+  margin-top: 0.32rem;
+  color: #c9c1e4;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
 .pix-result {
   margin-top: 1.5rem;
   padding-top: 1.2rem;
@@ -426,5 +565,16 @@
 
   .checkout-product {
     grid-template-columns: 1fr;
+  }
+
+  .checkout-upgrade-option label {
+    grid-template-columns: auto auto 1fr;
+    align-items: start;
+  }
+
+  .checkout-upgrade-price {
+    grid-column: 2 / 4;
+    padding-left: 0.1rem;
+    text-align: left;
   }
 }

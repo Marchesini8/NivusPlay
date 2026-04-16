@@ -31,7 +31,9 @@
 
   <header class="site-header">
     <a class="brand" href="/">
-      <div class="brand-badge">NP</div>
+      <div class="brand-badge">
+        <img src="assets/nivus-logo.png" alt="Logo Nivus">
+      </div>
       <span>NIVUS PLAY</span>
     </a>
 
@@ -115,10 +117,22 @@
             <span>Taxas</span>
             <strong>R$ 0,00</strong>
           </div>
+          <div id="summary-upgrade-row" hidden>
+            <span id="summary-upgrade-label">Opcao adicional</span>
+            <strong id="summary-upgrade-price">R$ 0,00</strong>
+          </div>
           <div class="checkout-total-row">
             <span>Total</span>
             <strong id="summary-total-price">R$ 0,00</strong>
           </div>
+        </div>
+
+        <div class="checkout-upgrade-card" id="checkout-upgrade-card" hidden>
+          <p class="checkout-kicker">Deseja adicionar mais tempo?</p>
+          <h3 class="checkout-upgrade-title">Escolha uma opcao especial</h3>
+          <p class="checkout-upgrade-text">Adicione uma opcao trimestral ou anual com o mesmo tema da sua plataforma.</p>
+
+          <div class="checkout-upgrade-options" id="checkout-upgrade-options"></div>
         </div>
 
         <div class="pix-result" id="pix-result" hidden>
